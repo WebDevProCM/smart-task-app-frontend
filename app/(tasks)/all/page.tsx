@@ -2,20 +2,11 @@ import LayoutHeaderText from '@/components/layout-header-text'
 import React from 'react'
 import {Clock} from 'lucide-react'
 import TaskContainer from '@/components/task-container';
+import { Task } from '@/types';
 
-
-interface TaskContainerProps{
-    userId: number;
-    title: string;
-    description: string;
-    status: string;
-    priority: "high" | "normal" | "low";
-    dueDate: Date;
-    completedAt: null|Date
-}
 
 const AllTaskPage = () => {
-  const dummyTasks: TaskContainerProps[] = [
+  const dummyTasks: Task[] = [
     {
       userId: 1, // Replace with real userId if needed
       title: "Buy groceries",
@@ -64,7 +55,7 @@ const AllTaskPage = () => {
 ];
 
   return (
-    <div className='min-h-screen max-h-full w-full bg-white rounded-md sm:p-10 p-6 p'>
+    <div className='min-h-screen max-h-full w-full bg-white rounded-md sm:p-10 p-5'>
       <LayoutHeaderText />
 
       {/* <section className='flex flex-col items-start justify-start gap-6 bg-gray-100 p-5 rounded-lg font-roboto'>
@@ -82,7 +73,7 @@ const AllTaskPage = () => {
           </div>
         </div>
       </section> */}
-      <section className='w-full h-full flex flex-col justify-center items-start gap-5'>
+      <section className='w-full h-full flex flex-col justify-start items-start gap-5 mt-5'>
 
         <TaskContainer heading='pending' tasks={dummyTasks}/>
         <TaskContainer heading='in-progress' tasks={dummyTasks}/>

@@ -101,6 +101,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuButton 
                 className="bg-red-600 font-inter text-white font-medium flex justify-center items-center gap-3 max-w-[100px] text-xs py-3 px-2 rounded-md cursor-pointer" 
                 tooltip="logout"
+                onClick={logoutHandler}
               >
                 <LogOut size={12} color="black" /> <span>Log out</span>
                 {/* {item.icon && <item.icon />}
