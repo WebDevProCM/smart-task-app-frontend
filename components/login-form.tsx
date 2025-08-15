@@ -12,6 +12,8 @@ import { useActionState, useEffect } from "react";
 import { loginUserFn } from "@/lib/actions";
 import { useAppDispatch } from "@/lib/hooks";
 import { loginUser } from "@/lib/auth-slice";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 const LoginForm = ({
   className,
@@ -24,8 +26,10 @@ const LoginForm = ({
   
   useEffect(() =>{
     if(state.success){
-      dispatch(loginUser(state.user));
+      dispatch(loginUser(state));
+      redirect("/");
     }
+    console.log(state);
   }, [state])
   
   return (
@@ -81,9 +85,15 @@ const LoginForm = ({
                     </div>
                     <p className="gradient-text text-xs font-semibold">Forgot password?</p>
                 </div>
-              <Button type="submit" className="w-full gradient-button font-bold font-san py-5 cursor-pointer">
-                {pending && <Loader2Icon className="animate-spin" />}
-                Sign In
+              <Button 
+                type="submit" 
+                className="w-full gradient-button font-bold font-san py-5 cursor-pointer" 
+                disabled={pending || state.success}
+                style={{backgroundColor: state.success ? "green" : "black"}}
+              >
+                {(pending || state.success) && <Loader2Icon className="animate-spin" />}
+                {state.success ? state.message : "Sign In"}
+                {}
               </Button>
             </div>
           </form>

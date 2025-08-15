@@ -13,6 +13,7 @@ export function middleware(request: NextRequest) {
     }
 
     const token = request.cookies.get('access_token');
+    console.log("token ",token);
 
     if (!auth.isAuthenticated || !auth.user || !token) {
         return NextResponse.redirect(new URL("/login", request.url));
@@ -21,7 +22,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
 }
 
-//target all paths
+
 export const config = {
-  matcher: ['/', '/((?!_next|api|favicon.ico).*)'],
+//   matcher: ['/', '/all:path*', '/today:path*', '/yesterday:path*', '/future:path*', '/profile:path*'], // only protect these
+  matcher: [], // only protect these
 };

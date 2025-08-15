@@ -1,11 +1,13 @@
 export interface Task{ 
-    userId: number;
-    title: string;
-    description: string;
-    status: "pending"| "in-progress" | "completed";
-    priority: "high" | "normal" | "low";
-    dueDate: Date;
-    completedAt: null|Date
+  _id: string;
+  userId: string | null;
+  title: string;
+  description: string;
+  status: 'pending' | 'in-progress' | 'completed' | string;
+  priority: 'low' | 'medium' | 'high' | string;
+  dueDate: string;
+  createdAt: string;
+  updatedAt: string| null;
 }
 
 

@@ -21,6 +21,7 @@ const TaskContainer = ({heading, tasks}:TaskContainerProps) => {
     const [viewTaskData, setViewTaskData] = useState<Task|null>(null);
     
     //priority status colors
+    type Priority = 'low' | 'normal' | 'high';
     const priorityColors = {
         low: "#7bf1a8",
         normal: "#8ec5ff",
@@ -54,7 +55,7 @@ const TaskContainer = ({heading, tasks}:TaskContainerProps) => {
                 <div className='flex justify-start items-center font-bold sm:text-base text-sm gap-5'>
                     <h1>{task.title}</h1> 
                     <div
-                        style={{backgroundColor: priorityColors[task.priority]}}
+                        style={{backgroundColor: priorityColors[task.priority as Priority]}}
                         className='p-1 px-2 font-semibold sm:text-[10px] text-[8px] rounded-2xl text-gray-800 text-center'
                     >
                         <span>{task.priority} priority</span>

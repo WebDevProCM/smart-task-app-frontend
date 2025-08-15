@@ -16,7 +16,7 @@ export const loginUserFn = async (prevState: any, formData: FormData,) => {
       return validationResult.error.flatten().fieldErrors;
     }
     const form = validationResult.data;
-    const response = await axiosApi.post("/api/auth/login", {form});
+    const response = await axiosApi.post("/api/auth/login", form);
     const data = await response.data;
 
     if(!data.success){

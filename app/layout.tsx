@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
+import { Toaster } from 'react-hot-toast';
 import StoreProvider from "./storeProvider";
+import { TanstackQueryClientProvider } from "./queryClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +36,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} antialiased`}
       >
         <StoreProvider>
-          {children}
+          <TanstackQueryClientProvider>
+            {children}
+          </TanstackQueryClientProvider>
+          <Toaster/>
         </StoreProvider>
       </body>
     </html>
