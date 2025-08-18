@@ -11,11 +11,6 @@ import { Progress } from '@/components/ui/progress';
 
 
 const AllTaskPage = () => {
-  const queryClient = useQueryClient();
-  const [fetchingProgress, setFetchingProgress] = useState(0);
-
-  const {data, error, isLoading} = useQuery({ queryKey: ['getTasks'], queryFn: () => fetchAllTasks(setFetchingProgress) })
-
   // const dummyTasks: Task[] = [
   //   {
   //     _id: "1", // Replace with real userId if needed
@@ -84,15 +79,9 @@ const AllTaskPage = () => {
         </div>
       </section> */}
       <section className='w-full h-full flex flex-col justify-start items-start gap-5 mt-5'>
-        {isLoading ? 
-          <Progress value={fetchingProgress} />
-          :
-          <>
-          <TaskContainer heading='pending' tasks={data!}/>
-          <TaskContainer heading='in-progress' tasks={data!}/>
-          <TaskContainer heading='completed' tasks={data!}/>
-          </>
-        }
+        <TaskContainer heading='pending'/>
+        <TaskContainer heading='in-progress' />
+        <TaskContainer heading='completed' />
 
       </section>
     </div>
