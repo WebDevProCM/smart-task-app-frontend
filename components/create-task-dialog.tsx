@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,8 +15,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { SidebarMenuButton } from "./ui/sidebar"
 import { Plus } from "lucide-react"
+import { Textarea } from "./ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import { DateTimePicker } from "./date-time-picker"
+import { useState } from "react"
 
 const CreateTaskModal = () => {
+  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [time, setTime] = useState<string | undefined>("10:30:00");
+
+
   return (
     <Dialog>
       <form className="w-full mx-auto">
@@ -29,27 +39,55 @@ const CreateTaskModal = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
-            </DialogDescription>
+            <DialogTitle>Create Task</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid gap-3">
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
+              <Label htmlFor="title">Task Title</Label>
+              <Input id="title" name="title" defaultValue="Task title" />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
+              <Label htmlFor="description">Task Description</Label>
+              <Textarea id="description" name="description" defaultValue="Task description" />
             </div>
+            <div className="flex gap-5">
+              <div className="grid gap-3">
+                <Label htmlFor="status">Task Status</Label>
+                <Select>
+                  <SelectTrigger className="w-[150px]">
+                    <SelectValue placeholder="pending" defaultValue="pending" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="in-progress">In-Progress</SelectItem>
+                    <SelectItem value="completed">Completed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="priority">Task Priority</Label>
+                <Select>
+                  <SelectTrigger className="w-[150px]">
+                    <SelectValue placeholder="low" defaultValue="low" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="normal">Normal</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="priority">Task Due Date</Label>
+              <DateTimePicker date={date} setDate={setDate} time={time} setTime={setTime}/>
+            </div>  
           </div>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="destructive">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
+            <Button className="bg-btn-theme" type="submit">Save changes</Button>
           </DialogFooter>
         </DialogContent>
       </form>
