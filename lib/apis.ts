@@ -1,6 +1,14 @@
 import axios from "axios";
 import axiosApi from "./axios-instance";
 import { Task } from "@/types";
+import z from "zod";
+import { createTaskValidation } from "./form-validation";
+
+interface response{
+    success:boolean,
+    data: Record<string,string>[],
+    message: string
+}
 
 export const fetchAllTasks = async (
     updatingProgress:React.Dispatch<React.SetStateAction<number>>,
@@ -20,6 +28,28 @@ export const fetchAllTasks = async (
             },
             withCredentials: true
         },);
+        const data = response.data;
+        if(!data.success){
+            throw new Error(data.message);
+        }
+
+        return data.data;
+
+    }catch(e){
+        console.log(e);
+        throw new Error("Something went wrong");
+    }
+}
+
+export const createTask = async (
+    formData: z.infer<typeof createTaskValidation>
+):Promise<response> => 
+    {
+    try{
+        const response = await axios.post(`http://localhost:3000/api/tasks`, formData, {
+            withCredentials: true
+        });
+
         const data = response.data;
         if(!data.success){
             throw new Error(data.message);
