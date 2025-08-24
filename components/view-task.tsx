@@ -9,7 +9,7 @@ import UpdateTaskModal from './update-task-modal'
 import { RemoveAlertDialogDemo } from './remove-alert-box'
 
 
-interface TaskViewProps{
+export interface TaskViewProps{
     setViewTask: React.Dispatch<React.SetStateAction<boolean>>
     task: Task
 }
@@ -18,7 +18,7 @@ const ViewTask = ({setViewTask, task}:TaskViewProps) => {
     const taskDiv = useRef<HTMLDivElement | null>(null);
     const dueDate = new Date(task.dueDate);
     const formattedDate = format(dueDate, "EEE MMM d y h:m aa");
-    const daysLeft = new Date().getDate()-dueDate.getDate()
+    const daysLeft = dueDate.getDate() - new Date().getDate();
 
     const closeModalHandler = (e:React.MouseEvent<HTMLElement|SVGSVGElement>) =>{
         if(taskDiv.current && taskDiv.current.contains(e.currentTarget)){
@@ -60,8 +60,8 @@ const ViewTask = ({setViewTask, task}:TaskViewProps) => {
             <div className='absolute sm:w-[50%] w-[70%] h-full top-0 right-0 bg-white border-2 border-gray-100 p-5 z-10' ref={taskDiv}>
                 <div className='flex justify-between items-center border-b-2 border-gray-300 pb-5'>
                     <div className='flex gap-3'>
-                        <UpdateTaskModal taskDetails={task}/>
-                        <RemoveAlertDialogDemo />
+                        <UpdateTaskModal taskDetails={task} setViewTask={setViewTask}/>
+                        <RemoveAlertDialogDemo id={task._id} setViewTask={setViewTask}/>
                     </div>
 
                     <X size={20} color='black' className='cursor-pointer' onClick={closeModalHandler}/>

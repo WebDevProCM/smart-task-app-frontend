@@ -23,8 +23,14 @@ import z from "zod"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { updateTask } from "@/lib/apis"
+import { TaskViewProps } from "./view-task"
 
-const UpdateTaskModal = ({taskDetails}: {taskDetails:Task}) => {
+
+interface UpdateTaskModalprops extends Pick<TaskViewProps, "setViewTask">{
+  taskDetails:Task
+}
+
+const UpdateTaskModal = ({taskDetails, setViewTask}:UpdateTaskModalprops) => {
   const [open, setOpen] = useState(false);
   const { register, handleSubmit, control, formState: { errors, isSubmitting } } = useForm<z.infer<typeof createTaskValidation>>({
     resolver: zodResolver(createTaskValidation)
@@ -52,6 +58,7 @@ const UpdateTaskModal = ({taskDetails}: {taskDetails:Task}) => {
       console.log("something went wrong in updating task");
     }finally{
       setOpen(false);
+      setViewTask(false);
     }
   };
 

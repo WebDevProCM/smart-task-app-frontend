@@ -67,7 +67,7 @@ const TaskContainer = ({heading}:TaskContainerProps) => {
             fetchedAllTask?.map((task) => {
                 const dueDate = new Date(task.dueDate);
                 const formattedDate = format(dueDate, "EEE MMM d y h:m aa");
-                const daysLeft = new Date().getDate()-dueDate.getDate()
+                const daysLeft = dueDate.getDate() - new Date().getDate();
                 return (
                 <motion.div 
                     whileHover={{

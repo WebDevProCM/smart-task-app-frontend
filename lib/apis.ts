@@ -85,3 +85,25 @@ export const updateTask = async (
         throw new Error("Something went wrong");
     }
 }
+
+export const removeTask = async (
+    id:string
+):Promise<response> => 
+    {
+    try{
+        const response = await axios.delete(`http://localhost:3000/api/tasks/${id}`, {
+            withCredentials: true
+        });
+
+        const data = response.data;
+        if(!data.success){
+            throw new Error(data.message);
+        }
+
+        return data;
+
+    }catch(e){
+        console.log(e);
+        throw new Error("Something went wrong");
+    }
+}
