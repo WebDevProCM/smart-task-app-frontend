@@ -23,11 +23,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { createTaskValidation } from "@/lib/form-validation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTask } from "@/lib/apis";
+import { Loader2Icon } from "lucide-react"
 
 
 const CreateTaskModal = () => {
   const [open, setOpen] = useState(false);
-  const { register, handleSubmit, control, formState: { errors } } = useForm<z.infer<typeof createTaskValidation>>({
+  const { register, handleSubmit, control, formState: { errors, isSubmitting } } = useForm<z.infer<typeof createTaskValidation>>({
     resolver: zodResolver(createTaskValidation)
   });
 
@@ -48,10 +49,11 @@ const CreateTaskModal = () => {
     try{
       console.log(data);
       mutateAsync(data);
-      setOpen(false);
     }catch(e){
       console.log(e);
       console.log("something went wrong in creating task");
+    }finally{
+      setOpen(false);
     }
   };
 
@@ -141,8 +143,8 @@ const CreateTaskModal = () => {
             <DialogClose asChild>
               <Button variant="destructive">Cancel</Button>
             </DialogClose>
-            <Button className="bg-btn-theme" type="submit">
-              Save changes
+            <Button disabled={isSubmitting} className="bg-btn-theme" type="submit">
+              Save changes {isSubmitting && <Loader2Icon className="animate-spin" />}
             </Button>
           </DialogFooter>
         </form>

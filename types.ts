@@ -3,8 +3,8 @@ export interface Task{
   userId: string | null;
   title: string;
   description: string;
-  status: 'pending' | 'in-progress' | 'completed' | string;
-  priority: 'low' | 'medium' | 'high' | string;
+  status: 'pending' | 'in-progress' | 'completed' | undefined;
+  priority: 'low' | 'normal' | 'high' | undefined;
   dueDate: string;
   createdAt: string;
   updatedAt: string| null;

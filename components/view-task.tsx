@@ -27,10 +27,6 @@ const ViewTask = ({setViewTask, task}:TaskViewProps) => {
         }
     }
 
-    const updateTaskHandler = (status:string) =>{
-
-    }
-
     const priorityColors = {
         low: "#7bf1a8",
         normal: "#8ec5ff",
@@ -64,7 +60,7 @@ const ViewTask = ({setViewTask, task}:TaskViewProps) => {
             <div className='absolute sm:w-[50%] w-[70%] h-full top-0 right-0 bg-white border-2 border-gray-100 p-5 z-10' ref={taskDiv}>
                 <div className='flex justify-between items-center border-b-2 border-gray-300 pb-5'>
                     <div className='flex gap-3'>
-                        <UpdateTaskModal />
+                        <UpdateTaskModal taskDetails={task}/>
                         <RemoveAlertDialogDemo />
                     </div>
 
@@ -79,7 +75,7 @@ const ViewTask = ({setViewTask, task}:TaskViewProps) => {
                     <h1 className='sm:text-2xl text-xl font-bold my-4'>{task.title}</h1>
                     
                     <div className='flex flex-wrap justify-start items-center sm:gap-2 gap-3 mt-4'>
-                        <Badge style={{backgroundColor: priorityColors[task.priority]}} variant="secondary" className='bg-red-300'>{task.priority}</Badge>
+                        <Badge style={{backgroundColor: priorityColors[task.priority as keyof typeof priorityColors]}} variant="secondary" className='bg-red-300'>{task.priority}</Badge>
                         <Badge variant="outline" className='bg-white'>{task.status}</Badge>
                         <Badge variant="secondary"><Clock size={10}/> {formattedDate}</Badge>
                         <Badge variant="secondary"><Clock size={10}/> {daysLeft < 0 ? 0 : daysLeft} days left</Badge>
@@ -94,7 +90,7 @@ const ViewTask = ({setViewTask, task}:TaskViewProps) => {
                         variant="outline"
                         disabled={task.status === "completed"}
                     >
-                        {nextTaskStatus[task.status]}
+                        {nextTaskStatus[task.status as keyof typeof nextTaskStatus]}
                     </Button>
                 </section>
             </div>

@@ -44,8 +44,17 @@ const TaskContainer = ({heading}:TaskContainerProps) => {
     }
 
     useEffect(() => {
-        setFetchAllTasks((prev) => [...(prev || []), ...(data || [])])
-    }, [data])
+        if (!data) return;
+
+        const allTasks = [...(fetchedAllTask || []), ...data];
+
+        const uniqueTasks = Array.from(
+            allTasks.reduce((map, task) => map.set(task._id, task), new Map()).values()
+        );
+
+        setFetchAllTasks(uniqueTasks);
+    }, [data]);
+
 
   return (
     <>  
